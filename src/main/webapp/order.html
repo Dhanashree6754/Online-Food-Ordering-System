@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: orange;
+            text-align: center;
+            padding: 20px;
+        }
+        .order-container {
+            background:white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h1 {
+            color: #28a745;
+        }
+        h2 {
+            font-size: 18px;
+            color: #555;
+        }
+        ul {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .thank-you {
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 15px;
+        }
+     .shayari {
+        	
+            font-style: italic;
+            color: red;
+            margin-top: 15px;
+        }  
+
+
+        .confirm-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .confirm-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* ⭐ Star Rating CSS */
+        .rating {
+            margin-top: 20px;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .star {
+            font-size: 30px;
+            color: #ccc;
+            transition: color 0.3s;
+            margin: 5px;
+        }
+        .star:hover,
+        .star.active {
+            color: gold;
+        }
+        #feedbackMessage {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="order-container">
+        <h1>✅ Your Order is Successful!</h1>
+        <h2>Thank you for your order. Here are your selected items:</h2>
+        <div id="orderDetails"></div>
+        <p class="thank-you">Your meal choice is amazing! Enjoy your food! 🍽️</p>
+        <p class="shayari">"Food is not just eating energy. It’s an experience!<br>May your meal be as delightful as your smile!" 😊</p>
+        
+        <!-- ⭐ 5-Star Feedback Section -->
+        <div class="rating">
+            <h3>Rate Your Experience:</h3>
+            <div class="stars">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <p id="feedbackMessage"></p>
+        </div>
+
+        <a href="success1.html" class="confirm-button">Order Confirmation</a>
+    </div>
+
+    <script>
+        // ✅ Extract selected items and prices from URL
+        const params = new URLSearchParams(window.location.search);
+        const items = params.get("items");
+        const prices = params.get("prices");
+
+        if (items && prices) {
+            const itemList = items.split(",");
+            const priceList = prices.split(",").map(Number);
+            let totalPrice = priceList.reduce((sum, price) => sum + price, 0);  // ✅ Calculate Total Price
+
+            let orderHTML = "<ul>";
+            itemList.forEach((item, index) => {
+                orderHTML += `<li>${item} - ₹${priceList[index]}</li>`;
+            });
+            orderHTML += "</ul>";
+            orderHTML += `<p><strong>Total Price: ₹${totalPrice}</strong></p>`;
+
+            document.getElementById("orderDetails").innerHTML = orderHTML;
+        } else {
+            document.getElementById("orderDetails").innerHTML = "<p>No items selected!</p>";
+        }
+
+        // ⭐ JavaScript for Star Rating
+        const stars = document.querySelectorAll(".star");
+        const feedbackMessage = document.getElementById("feedbackMessage");
+
+        stars.forEach(star => {
+            star.addEventListener("click", function () {
+                const value = this.getAttribute("data-value");
+                
+                // Remove active class from all stars
+                stars.forEach(s => s.classList.remove("active"));
+
+                // Add active class to selected stars
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add("active");
+                }
+
+                // Show feedback message
+                feedbackMessage.textContent = `You rated ${value} stars. Thank you for your feedback!`;
+            });
+        });
+    </script>
+</body>
+</html>

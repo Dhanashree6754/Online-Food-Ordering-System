@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Menu</title>
+    <style>
+        body {
+            background-color: orange;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevents horizontal scroll */
+        }
+
+        h1 {
+            color: white;
+            padding: 20px;
+            position: absolute;
+            top: 30px; /* Title moved higher */
+            left: -100%; /* Starts fully outside the left */
+            font-size: 2em;
+            white-space: nowrap;
+            animation: moveTitle 5s linear infinite; /* Slower speed */
+        }
+
+        @keyframes moveTitle {
+            0% { left: -100%; }
+            100% { left: 100%; } /* Moves completely to the right */
+        }
+
+        .menu-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 120px; /* Adjusted gap between title & container */
+            margin-bottom: 50px; /* Extra space below container */
+        }
+
+        iframe {
+            width: 80%;
+            height: 600px; /* Balanced height */
+            border: none;
+            background-color:  #333333; /* Dark gray background */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+        
+       
+    </style>
+</head>
+<body>
+    <h1 >Welcome to Food Ordering </h1>
+    <div class="menu-container">
+        <iframe src="Menu"></iframe>
+        
+    </div>
+</body>
+</html>
